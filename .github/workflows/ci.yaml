@@ -12,6 +12,7 @@ env:
   GITOPS_REPOSITORY: "nurielb/final-project-helm.git"
   DOCKER_IMAGE_TAG: ""
   IS_PROD: ""
+  VALUES_FILE: ""
   BRANCH_MAP: >
     {"main":"values-prod.yaml",
     "development":"values-dev.yaml"}
@@ -100,7 +101,7 @@ jobs:
       -
         name: Update GitOps Repository
         run: |
-          values_file_path="./charts/final_project/values-${GITHUB_REF_NAME}.yaml"
+          values_file_path="./charts/final_project/${{ env.VALUES_FILE }}"
           yq -i '.container.image.tag = "${{ env.DOCKER_IMAGE_TAG }}"' ${values_file_path}
 
       -
