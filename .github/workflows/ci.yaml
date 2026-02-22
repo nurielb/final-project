@@ -9,7 +9,7 @@ on:
 env:
   PYTHON_VERSION: "3.11.14"
   APP_PATH: "backend"
-  GITOPS_REPOSITORY: "nurielb/final-project-helm.git"
+  GITOPS_REPOSITORY: "nurielb/final-project-helm"
   DOCKER_IMAGE_TAG: ""
   IS_PROD: ""
   VALUES_FILE: ""
@@ -96,12 +96,13 @@ jobs:
         with:
           repository: ${{ env.GITOPS_REPOSITORY }}
           ref: main
+          token: ${{ secrets.GITOPS_TOKEN }}
           fetch-depth: 10
 
       -
         name: Update GitOps Repository
         run: |
-          values_file_path="./charts/final_project/${{ env.VALUES_FILE }}"
+          values_file_path="./charts/final-project/${{ env.VALUES_FILE }}"
           yq -i '.container.image.tag = "${{ env.DOCKER_IMAGE_TAG }}"' ${values_file_path}
 
       -
@@ -119,6 +120,4 @@ jobs:
         if: env.IS_PROD == false
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: Updated GITHUB_REF_NAME image tag
-          tag_name: DOCKER_IMAGE_TAG
-          token: ${{ secrets.GITOPS_TOKEN }}
+          commit_message: "Update image tag to ${{ env.DOCKER_IMAGE_TAG }}"
