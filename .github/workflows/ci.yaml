@@ -87,7 +87,7 @@ jobs:
 
       - 
         name: Set values file
-        run: echo "VALUES_FILE=${{ fromJson(env.BRANCH_MAP)[github.ref_name]] }}" >> $GITHUB_ENV
+        run: echo "VALUES_FILE=${{ fromJson(env.BRANCH_MAP)[github.ref_name] }}" >> $GITHUB_ENV
 
       - 
         name: Checkout repository branch
