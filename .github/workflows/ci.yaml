@@ -97,7 +97,7 @@ jobs:
 
       -
         name: Create pull request to main branch
-        if: env.IS_PROD == "true"
+        if: env.IS_PROD == true
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: Updated Production image tag
@@ -107,7 +107,7 @@ jobs:
 
       -
         name: Auto Commit
-        if: env.IS_PROD == "false"
+        if: env.IS_PROD == false
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Updated GITHUB_REF_NAME image tag
