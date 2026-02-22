@@ -94,6 +94,7 @@ jobs:
           repository: ${{ env.GITOPS_REPOSITORY }}
           ref: main
           token: ${{ secrets.GITOPS_TOKEN }}
+          persist-credentials: false
           fetch-depth: 10
 
       -
