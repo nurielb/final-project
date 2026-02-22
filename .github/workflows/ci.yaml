@@ -12,6 +12,9 @@ env:
   GITOPS_REPOSITORY: "nurielb/final-project-helm.git"
   DOCKER_IMAGE_TAG: ""
   IS_PROD: ""
+  BRANCH_MAP: >
+    {"main":"values-prod.yaml",
+    "development":"values-dev.yaml"}
 
 jobs:
   build:
@@ -81,6 +84,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha,scope=${{ runner.os }}-buildx
           cache-to: type=gha,scope=${{ runner.os }}-buildx-new,mode=max
+
+      - 
+        name: Set values file
+        run: echo "VALUES_FILE=${{ fromJson(env.BRANCH_MAP)[github.ref_name]] }}" >> $GITHUB_ENV
 
       - 
         name: Checkout repository branch
