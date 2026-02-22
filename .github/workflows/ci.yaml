@@ -86,7 +86,7 @@ jobs:
         name: Checkout repository branch
         uses: actions/checkout@v6
         with:
-          repository: env.GITOPS_REPOSITORY
+          repository: ${{ env.GITOPS_REPOSITORY }}
           fetch-depth: 10
 
       -
