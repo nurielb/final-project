@@ -94,7 +94,7 @@ jobs:
           repository: ${{ env.GITOPS_REPOSITORY }}
           ref: main
           token: ${{ secrets.GITOPS_TOKEN }}
-          persist-credentials: true
+          persist-credentials: false
           fetch-depth: 10
 
       -
@@ -108,6 +108,7 @@ jobs:
         if: github.ref_name == 'main'
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.GITOPS_TOKEN }}
           commit-message: Updated Production image tag
           title: Update Production Image Tag
           body: Updated Production image tag
@@ -118,4 +119,5 @@ jobs:
         if: github.ref_name != 'main'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
+          token: ${{ secrets.GITOPS_TOKEN }}
           commit_message: "Update image tag to ${{ env.DOCKER_IMAGE_TAG }}"
