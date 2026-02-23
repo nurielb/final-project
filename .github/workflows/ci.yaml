@@ -94,7 +94,7 @@ jobs:
           repository: ${{ env.GITOPS_REPOSITORY }}
           ref: main
           token: ${{ secrets.GITOPS_TOKEN }}
-          persist-credentials: false
+          persist-credentials: true
           fetch-depth: 10
 
       -
@@ -111,7 +111,7 @@ jobs:
           commit-message: Updated Production image tag
           title: Update Production Image Tag
           body: Updated Production image tag
-          branch: production-image-update
+          branch: production-image-update-${{ github.run_id }}
 
       -
         name: When updating non-prod - Auto Commit
@@ -119,4 +119,3 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update image tag to ${{ env.DOCKER_IMAGE_TAG }}"
-          token: ${{ secrets.GITOPS_TOKEN }}
