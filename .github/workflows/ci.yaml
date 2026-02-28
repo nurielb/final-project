@@ -100,7 +100,7 @@ jobs:
       -
         name: Update GitOps Repository
         run: |
-          values_file_path="./charts/final-project/${{ env.VALUES_FILE }}"
+          values_file_path="./apps/final-project/${{ env.VALUES_FILE }}"
           yq -i '.container.image.tag = "${{ env.DOCKER_IMAGE_TAG }}"' ${values_file_path}
 
       -
